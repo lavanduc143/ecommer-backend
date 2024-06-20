@@ -9,10 +9,18 @@ const cors = require("cors")
 const { error } = require("console")
 
 app.use(express.json())
-app.use(cors())
+app.use(cors(
+    {
+        origin: ["https://ecommer-backend-ten.vercel.app/"],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+));
+
 
 //database mongodb
 mongoose.connect("mongodb+srv://lavanduc143:ducct143@cluster0.12cghiw.mongodb.net/e-commerce")
+
 
 //API creation
 
@@ -39,7 +47,9 @@ app.post("/upload", upload.single('product'), (req, res) => {
         success: 1,
         // image_url:`http://localhost:${port}/images/${req.file.filename}`
         image_url:`https://ecommer-backend-ten.vercel.app/images/${req.file.filename}`
+
     })
+    console.log(image_url)
 })
 
 // schema for creating products
